@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'img/style.css' %}" />
+  </head>
+  <body>
+    <main class="main">
+      <header>
+        <div class="logo-and-title">
+          <img src="{% static "img/r.png" %}" alt="Logo">
+          <a class="logo" href="#">Restaurant</a>
+        </div>
+        <div class="navigation">
+          <a class="fa" href="#">Home</a>
+          <a class="fa" href="{% url 'about' %}">About</a>
+          <a class="fa" href="#">Services</a>
+          <a class="fa" href="#">Contact</a>
+          <a href="{% url 'signup' %}"><button class="btnLogin-popup">Login</button></a>
+          <a href="{% url 'login' %}"><button class="btnSignup-popup">Signup</button></a>
+        </div>
+        <div class="menu-icon">&#9776;</div>
+      </header>
+    </main>
+    <div class="restaurant-container" id="restaurants-container">
+      <div class="restaurant-section" data-restaurant-id="1">
+        <img class="restaurant-image" src="{% static "img/gourmet.jpg" %}"
+        alt="Gourmet Haven">
+        <div class="restaurant-info">
+          <h2 class="restaurant-name">Gourmet Haven</h2>
+          <p class="restaurant-description">
+            Discover the exquisite taste of our dishes in a cozy atmosphere.
+          </p>
+          <a href="#" class="restaurant-link">Explore Menu</a>
+        </div>
+      </div>
+      <div id="restaurant-details">
+      </div>
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var exploreMenuLink = document.querySelector('.restaurant-link');
+            exploreMenuLink.addEventListener('click', function (event) {
+                event.preventDefault(); 
+        
+                var restaurantId = document.querySelector('.restaurant-section').getAttribute('data-restaurant-id');
+                var restaurantDetails = getRestaurantDetails(restaurantId);
+        
+                displayRestaurantDetails(restaurantDetails);
+            });
+        });
+        
+        function getRestaurantDetails(restaurantId) {
+            return {
+                workingDays: ['Monday', 'Wednesday', 'Friday'],
+                workingTimes: {
+                    'Monday': '10:00 AM - 8:00 PM',
+                    'Wednesday': '11:00 AM - 9:00 PM',
+                    'Friday': '12:00 PM - 10:00 PM'
+                },
+                availablePlaces: 20,
+                reservedPlaces: 5
+            };
+        }
+        
+        function displayRestaurantDetails(restaurantDetails) {
+            var restaurantDetailsContainer = document.getElementById('restaurant-details');
+        
+            var workingDaysElement = document.createElement('p');
+            workingDaysElement.textContent = 'Working Days: ' + restaurantDetails.workingDays.join(', ');
+            restaurantDetailsContainer.appendChild(workingDaysElement);
+        
+            for (var day in restaurantDetails.workingTimes) {
+                var workingTimesElement = document.createElement('p');
+                workingTimesElement.textContent = day + ': ' + restaurantDetails.workingTimes[day];
+                workingTimesElement.addEventListener('click', function(day, time) {
+                    showReservationStatus(day, time, restaurantDetails);
+                }.bind(null, day, restaurantDetails.workingTimes[day]));
+                restaurantDetailsContainer.appendChild(workingTimesElement);
+            }
+        
+            var menuContainer = document.createElement('div');
+            menuContainer.id = 'menu-container';
+            restaurantDetailsContainer.appendChild(menuContainer);
+        }
+        
+        function showReservationStatus(day, time, restaurantDetails) {
+            var reservedPlaces = restaurantDetails.reservedPlaces;
+            var availablePlaces = restaurantDetails.availablePlaces;
+        
+            var reservationDetailsContainer = document.getElementById('menu-container');
+            reservationDetailsContainer.innerHTML = `
+                <h2>${day}: ${time}</h2>
+                <p>Reserved Places: ${reservedPlaces}</p>
+                <p>Empty Places for Reservation: ${availablePlaces}</p>
+                <button id="reserveButton">Reserve Now</button>
+            `;
+        
+            var reserveButton = document.getElementById('reserveButton');
+            reserveButton.addEventListener('click', function() {
+                reservePlace(restaurantDetails);
+                showMenus(restaurantDetails); 
+            });
+        }
+        
+        function reservePlace(restaurantDetails) {
+            setTimeout(function () {
+                restaurantDetails.reservedPlaces += 1;
+        
+                restaurantDetails.availablePlaces -= 1;
+        
+                var reservedPlacesElement = document.querySelector('#menu-container p:first-child');
+                reservedPlacesElement.textContent = 'Reserved Places: ' + restaurantDetails.reservedPlaces;
+        
+                var availablePlacesElement = document.querySelector('#menu-container p:last-child');
+                availablePlacesElement.textContent = 'Empty Places for Reservation: ' + restaurantDetails.availablePlaces;
+            }, 1000);  
+        }
+        
+        function showMenus(restaurantDetails) {
+            var menuContainer = document.getElementById('menu-container');
+            menuContainer.innerHTML += `
+                <h3>Menu</h3>
+                <ul>
+                    <li>Appetizer: Tomato Bruschetta</li>
+                    <li>Main Course: Grilled Salmon</li>
+                    <li>Dessert: Tiramisu</li>
+                </ul>
+            `;
+        }
+        </script>
+        
+      <div class="restaurant-section">
+        <img class="restaurant-image" src="{% static "img/bistro.jpg" %}"
+        alt="Savory Delights Bistro">
+        <div class="restaurant-info">
+          <h2 class="restaurant-name">Savory Delights Bistro</h2>
+          <p class="restaurant-description">
+            Indulge in a culinary journey with our chef's special creations.
+          </p>
+          <a href="{% url 'select_date' %}" class="restaurant-link">Explore Menu</a>
+        </div>
+      </div>
+
+      <div class="restaurant-section">
+        <img class="restaurant-image" src="{% static "img/canvas.jpeg" %}"
+        alt="Culinary Canvas">
+        <div class="restaurant-info">
+          <h2 class="restaurant-name">Culinary Canvas</h2>
+          <p class="restaurant-description">
+            Discover the exquisite taste of our dishes in a cozy atmosphere.
+          </p>
+          <a href="{% url 'select_date' %}" class="restaurant-link">Explore Menu</a>
+        </div>
+      </div>
+      <div class="restaurant-section">
+        <img class="restaurant-image" src="{% static "img/spice.jpg" %}"
+        alt="Spice Symphony">
+        <div class="restaurant-info">
+          <h2 class="restaurant-name">Spice Symphony</h2>
+          <p class="restaurant-description">
+            Indulge in a culinary journey with our chef's special creations.
+          </p>
+          <a href="{% url 'select_date' %}" class="restaurant-link">Explore Menu</a>
+        </div>
+      </div>
+
+      <div class="restaurant-section">
+        <img class="restaurant-image" src="{% static "img/coast.jpg" %}"
+        alt="Coastal Eats Grill">
+        <div class="restaurant-info">
+          <h2 class="restaurant-name">Coastal Eats Grill</h2>
+          <p class="restaurant-description">
+            Discover the exquisite taste of our dishes in a cozy atmosphere.
+          </p>
+          <a href="{% url 'select_date' %}" class="restaurant-link">Explore Menu</a>
+        </div>
+      </div>
+      <div class="restaurant-section">
+        <img class="restaurant-image" src="{% static "img/urban.jpg" %}"
+        alt="Urban Harvest Kitchen">
+        <div class="restaurant-info">
+          <h2 class="restaurant-name">Urban Harvest Kitchen</h2>
+          <p class="restaurant-description">
+            Indulge in a culinary journey with our chef's special creations.
+          </p>
+          <a href="{% url 'select_date' %}" class="restaurant-link">Explore Menu</a>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-bottom">
+        <p>&copy; 2024 Restaurant. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      const header = document.querySelector("header");
+      const navigation = document.querySelector(".navigation");
+      const menuIcon = document.querySelector(".menu-icon");
+
+      menuIcon.addEventListener("click", () => {
+        navigation.classList.toggle("active");
+      });
+    </script>
+  </body>
+</html>
