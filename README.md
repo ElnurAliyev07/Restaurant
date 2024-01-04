@@ -1,5 +1,8 @@
 # Restaurant
 USAGE:
+Open terminal and follow this command (WIN + R type cmd click Enter)
+#
+python -m venv env
 #
 env\scripts\activate
 #
@@ -10,7 +13,7 @@ django-admin startproject myproject
 cd myproject
 #
 python manage.py startapp myapp
-##
+#
 python manage.py makemigrations
 #
 python manage.py migrate
