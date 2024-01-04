@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SerbestIS</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'img/about.css' %}" />
+  </head>
+  <body>
+    <header>
+      <h1>Restaurant Reservation System</h1>
+      <nav>
+        <ul>
+          <li><a href="{% url 'logout' %}">Home</a></li>
+        </ul>
+      </nav>
+    </header>
+    <section class="about-section">
+      <h2>About</h2>
+      <p>
+        A restaurant reservation system is a software solution that allows
+        customers to book tables in advance at a restaurant. It streamlines the
+        reservation process, making it more efficient for both customers and
+        restaurant staff. Here are some key components and features typically
+        found in a restaurant reservation system: User Interface (UI): An
+        intuitive and user-friendly interface for customers to browse available
+        reservation times, select preferred dates, and choose the number of
+        guests. Booking Engine: The core functionality that enables customers to
+        make reservations online or through a mobile app. This may include
+        real-time availability updates. Calendar Management: A calendar system
+        for the restaurant staff to view and manage reservations, ensuring
+        efficient allocation of tables and preventing overbooking. Table
+        Management: Tools for restaurant staff to assign and manage tables,
+        accommodating varying party sizes and optimizing the seating
+        arrangement. Confirmation and Reminder System: Automated confirmation
+        emails or SMS messages sent to customers upon successful booking, along
+        with reminders closer to the reservation time. Cancellations and
+        Modifications: Allows customers to cancel or modify their reservations,
+        helping the restaurant manage its seating capacity effectively.
+        Integration with Point of Sale (POS): Seamless integration with the
+        restaurant's POS system to update the availability of tables in
+        real-time and sync reservation details with the overall operation.
+        Waitlist Management: A feature that allows customers to join a waitlist
+        when the desired reservation time is not available, notifying them if a
+        table becomes available. Customer Database: A system to store customer
+        information, preferences, and history to personalize their dining
+        experience and build customer loyalty. Reporting and Analytics: Tools
+        for the restaurant to analyze reservation data, track peak hours, and
+        assess the overall performance of the reservation system. Multi-location
+        Support: If a restaurant has multiple branches, the reservation system
+        should support managing reservations across different locations. Mobile
+        Accessibility: A mobile-friendly version or app to allow customers to
+        make reservations on the go. Implementing a restaurant reservation
+        system can enhance customer satisfaction, improve operational
+        efficiency, and contribute to better overall management of the
+        restaurant's dining area. It's an essential tool for modern restaurants
+        looking to streamline their reservation process and provide a smoother
+        experience for both customers and staff.
+      </p>
+    </section>
+
+    <footer>
+      <p>&copy; 2024 Restaurant. All rights reserved.</p>
+    </footer>
+  </body>
+</html>

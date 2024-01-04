@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Form</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'img/login.css' %}" />
+  </head>
+  <style></style>
+  <body>
+    <div class="container">
+      <div class="center">
+        {% for message in messages %}
+        <p
+          style="
+            text-align: center;
+            color: black;
+            margin-top: -12px;
+            border: 2px solid yellow;
+            background: white;
+          "
+          id="messages"
+        >
+          {{message}}
+        </p>
+        {% endfor %}
+        <h1>Login</h1>
+        <form method="post">
+          {% csrf_token %}
+          <div class="inputbox">
+            <input
+            type="text"
+            placeholder="Enter Username"
+            id="username"
+            name="username"
+            required="required"
+            />
+          </div>
+          <div class="inputbox">
+            <input
+              type="password"
+              placeholder="Enter Password:"
+              name="password"
+            />
+          </div>
+          <div class="inputbox">
+            <input
+              style="color: black"
+              type="submit"
+              value="Login"
+              name="login"
+            />
+          </div>
+        </form>
+      </div>
+      <a
+        href="{% url 'signup' %}"
+        style="text-decoration: none; color: whitesmoke"
+        >Create an account</a
+      >
+    </div>
+  </body>
+</html>

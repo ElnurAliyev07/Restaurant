@@ -1,0 +1,21 @@
+<form method="get" action="{% url 'select_table' date_id=0 %}">
+    {% csrf_token %}
+    <label for="date-selector">Select Date:</label>
+    <select id="date-selector" name="date_id">
+        {% for date in dates %}
+            <option value="{{ date.id }}">{{ date.date }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Select</button>
+</form>
+
+<div id="table-container">
+    {% if selected_date %}
+        <h3>Available Tables for {{ selected_date.date }}:</h3>
+        <ul>
+            {% for table in tables %}
+                <li>{{ table.number }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>

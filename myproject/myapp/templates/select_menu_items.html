@@ -1,0 +1,31 @@
+<script>
+    function updateSelectedItems() {
+        var selectedItems = [];
+        $('input[name="menu_items"]:checked').each(function () {
+            selectedItems.push($(this).val());
+        });
+        $('#selected-items').text(selectedItems.join(', '));
+    }
+
+    $(document).ready(function () {
+        updateSelectedItems();
+
+        $('input[name="menu_items"]').on('change', function () {
+            updateSelectedItems();
+        });
+    });
+</script>
+
+<form method="post" action="{% url 'confirm_reservation' date_id=date.id table_number=table.number %}">
+    {% csrf_token %}
+    {% for item in menu_items %}
+        <label for="menu_item_{{ item.id }}">
+            <input type="checkbox" id="menu_item_{{ item.id }}" name="menu_items" value="{{ item.id }}">
+            {{ item.name }} - ${{ item.price }}
+        </label><br>
+    {% endfor %}
+    <br>
+    <button type="submit">Confirm Reservation</button>
+</form>
+
+<p>Selected items: <span id="selected-items"></span></p>
