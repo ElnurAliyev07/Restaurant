@@ -1,10 +1,7 @@
 # Restaurant
 USAGE:
-##
-env\scripts\activate
-# 
+## env\scripts\activate
 pip install django
-# 
 django-admin startproject myproject
 #
 cd myproject
